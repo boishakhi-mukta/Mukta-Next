@@ -131,7 +131,7 @@ const Projects = () => {
         </Fade>
 
         <Fade cascade damping={0.08} duration={600}>
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch">
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-stretch">
             {visibleProjects.map((project) => (
               <Tilt
                 key={project.title}
