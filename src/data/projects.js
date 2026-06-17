@@ -1,0 +1,137 @@
+export const projectsData = [
+  {
+    slug: "pet-care-center",
+    title: "Pet Care Center",
+    imageSrc: "petcare",
+    summary:
+      "A responsive pet service platform for booking winter care services for pets in Norway.",
+    tech: [
+      "React 19",
+      "React Router 7",
+      "Tailwind CSS 4",
+      "DaisyUI",
+      "Firebase Auth",
+      "AOS",
+      "Swiper",
+      "Vite",
+    ],
+    description:
+      "Pet Care Center is a user-friendly platform for pet owners in Norway to explore and book winter care services for their pets. Users can browse available services, check ratings and pricing, book appointments, and read reviews from other customers. The platform features a seasonal winter theme with snowfall effects, a hero carousel for promotions, a veterinary team showcase, and smooth scroll-based animations throughout.",
+    github: "https://github.com/Boishakhi11/Pet-Care-Center",
+    live: "https://pet-care-center-in-norway.netlify.app/",
+    challenges: [
+      "Implementing dual authentication (email/password + Google OAuth) with Firebase while handling edge cases like password reset and profile photo updates.",
+      "Creating performant scroll-based animations with AOS without impacting Lighthouse scores on mobile devices.",
+      "Building a dynamic service booking interface with real-time form validation and appointment slot management.",
+      "Integrating a snowfall effect for the winter theme without causing layout jank or performance drops on lower-end devices.",
+    ],
+    improvements: [
+      "Add online payment integration (Vipps / Stripe) to enable direct booking payments within the platform.",
+      "Build a real-time availability calendar so users can see open appointment slots before booking.",
+      "Introduce a vet/service-provider dashboard for managing bookings and customer communication.",
+      "Add push notifications for booking confirmations, reminders, and status updates.",
+    ],
+  },
+  {
+    slug: "civicclean",
+    title: "CivicClean",
+    imageSrc: "CivicClean",
+    summary:
+      "A full-stack civic issue reporting and management platform with role-based dashboards for citizens, staff, and admins.",
+    tech: [
+      "React 18",
+      "React Router v6",
+      "TanStack Query v5",
+      "Firebase Auth",
+      "Firebase Storage",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Recharts",
+      "Leaflet",
+      "jsPDF",
+      "Tailwind CSS",
+    ],
+    description:
+      "CivicClean is a full-stack civic issue reporting and management platform built for the Oslo community. Citizens can report local problems — Garbage, Road Damage, Illegal Construction, Broken Public Property — with photos and location data. Staff members resolve assigned issues through a dedicated workflow, while admins oversee the entire operation through rich dashboards with charts and statistics. The platform supports premium subscriptions, issue boosting, community upvoting, crowdfunding contributions, and an interactive Leaflet map of all reported issues.",
+    github: "https://github.com/Boishakhi11/CivicClean",
+    live: "https://civic-clean-oslo.netlify.app/",
+    challenges: [
+      "Designing a secure role-based access system (citizen / staff / admin) using Firebase JWT verification on a custom Express backend, with route guards both client- and server-side.",
+      "Building real-time upvote functionality that prevents duplicate votes and updates the UI instantly without a page reload, using TanStack Query optimistic mutations.",
+      "Integrating Leaflet maps with dynamic, clickable markers sourced from the live MongoDB dataset, including custom popups linking to issue detail pages.",
+      "Implementing PDF invoice generation with jsPDF and AutoTable for admin payment records, handling dynamic table data cleanly.",
+      "Managing complex nested state across three role-specific dashboards (admin, staff, citizen) with TanStack Query caching and targeted cache invalidation.",
+    ],
+    improvements: [
+      "Add WebSocket-based real-time notifications so citizens receive instant updates when their issue status changes.",
+      "Build a React Native mobile app for on-the-go issue reporting with native camera integration.",
+      "Integrate AI image classification to auto-categorise reported issues from uploaded photos, reducing manual admin triage.",
+      "Connect to municipal open-data APIs for automated staff assignment based on issue location and department jurisdiction.",
+    ],
+  },
+  {
+    slug: "smart-deal",
+    title: "Smart Deal",
+    imageSrc: "smartdeals",
+    summary:
+      "A full-stack secondhand marketplace with product listings, bidding, and personal dashboards for buyers and sellers.",
+    tech: [
+      "React",
+      "React Router",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Firebase Auth",
+    ],
+    description:
+      "Smart Deal is a secondhand marketplace where users can buy, sell, and bid on products through a clean and intuitive interface. Users can post products for sale with images and descriptions, place bids on listings, track their active bids, manage their own listings, and edit or delete products from their personal dashboard. The dual-role design means any user can seamlessly act as both a buyer and a seller within the same account.",
+    github: "https://github.com/Boishakhi11/SecondLifeHub-client",
+    live: null,
+    challenges: [
+      "Designing a dual-role UX where the same user can switch between acting as a buyer and a seller without context confusion in the dashboard.",
+      "Handling bid conflicts on the server side to ensure data consistency when multiple users submit bids simultaneously.",
+      "Building a unified dashboard that presents both purchased items and listed products in a coherent, filterable view.",
+      "Securing product ownership so users can only edit or delete their own listings, enforced at both the client and server layers.",
+    ],
+    improvements: [
+      "Add real-time bid notifications via WebSocket so sellers and competing bidders see updates instantly without refreshing.",
+      "Introduce an in-app messaging system so buyers and sellers can communicate before completing a transaction.",
+      "Build an escrow payment system to secure transactions and protect both parties from fraud.",
+      "Add a review and rating system so buyers can rate sellers after completed deals, building community trust.",
+    ],
+  },
+  {
+    slug: "portfolio-generator",
+    title: "Portfolio Generator",
+    imageSrc: "portfolio",
+    summary:
+      "A bilingual (Norwegian / English) portfolio showcase platform built for Nettverkshuset's Scale-Up programme participants.",
+    tech: [
+      "React 18",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Firebase Auth",
+      "React Router v6",
+      "Google OAuth",
+    ],
+    description:
+      "Developed for Nettverkshuset, a Norwegian organisation, to showcase Scale-Up programme participants. The platform allows candidates to log in with Google OAuth, register their professional details with dynamic photo uploads, and generates a shareable portfolio page for each candidate. It features full Norwegian/English localisation, glassmorphism UI elements, micro-animations, and was built using AI-directed development techniques with Google Antigravity.",
+    github: "https://github.com/Boishakhi11/Scale-up-project",
+    live: "https://scale-up-woman.netlify.app/",
+    challenges: [
+      "Implementing full i18n (Norwegian / English) across all routes and components while keeping the codebase DRY and maintainable in TypeScript.",
+      "Building a photo upload flow with Firebase Storage that handles file validation, upload progress feedback, and live preview within a typed environment.",
+      "Designing a shareable public portfolio URL structure that remains accessible without a login while admin and candidate routes stay protected.",
+      "Balancing AI-directed development (Google Antigravity) with writing clean, reviewable TypeScript code that the team could confidently maintain.",
+    ],
+    improvements: [
+      "Add PDF export functionality so candidates can download a print-ready version of their portfolio.",
+      "Offer multiple portfolio templates and customisable colour schemes to give each candidate a more personal page.",
+      "Integrate LinkedIn API import to auto-populate portfolio fields from a candidate's LinkedIn profile, reducing manual data entry.",
+      "Add a simple analytics dashboard so candidates can track how many views and clicks their portfolio page receives.",
+    ],
+  },
+];
