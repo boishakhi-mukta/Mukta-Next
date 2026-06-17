@@ -51,7 +51,7 @@ export default function ProjectDetailContent({ project, image }) {
                     <span className="text-[11px] text-base-content/35 font-mono truncate">
                       {project.live
                         ? project.live.replace("https://", "")
-                        : `github.com/Boishakhi11/${project.slug}`}
+                        : `github.com/boishakhi-mukta/${project.slug}`}
                     </span>
                   </div>
                 </div>

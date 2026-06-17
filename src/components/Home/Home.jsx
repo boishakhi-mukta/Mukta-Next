@@ -98,7 +98,7 @@ const Home = () => {
 
               <Magnetic strength={0.18} max={8}>
                 <a
-                  href="https://github.com/Boishakhi11"
+                  href="https://github.com/boishakhi-mukta"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 transition hover:text-primary"

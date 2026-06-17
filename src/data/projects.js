@@ -18,7 +18,7 @@ export const projectsData = [
     ],
     description:
       "Pet Care Center is a user-friendly platform for pet owners in Norway to explore and book winter care services for their pets. Users can browse available services, check ratings and pricing, book appointments, and read reviews from other customers. The platform features a seasonal winter theme with snowfall effects, a hero carousel for promotions, a veterinary team showcase, and smooth scroll-based animations throughout.",
-    github: "https://github.com/Boishakhi11/Pet-Care-Center",
+    github: "https://github.com/boishakhi-mukta/Pet-Care-Center",
     live: "https://pet-care-center-in-norway.netlify.app/",
     challenges: [
       "Implementing dual authentication (email/password + Google OAuth) with Firebase while handling edge cases like password reset and profile photo updates.",
@@ -57,7 +57,7 @@ export const projectsData = [
     ],
     description:
       "CivicClean is a full-stack civic issue reporting and management platform built for the Oslo community. Citizens can report local problems — Garbage, Road Damage, Illegal Construction, Broken Public Property — with photos and location data. Staff members resolve assigned issues through a dedicated workflow, while admins oversee the entire operation through rich dashboards with charts and statistics. The platform supports premium subscriptions, issue boosting, community upvoting, crowdfunding contributions, and an interactive Leaflet map of all reported issues.",
-    github: "https://github.com/Boishakhi11/CivicClean",
+    github: "https://github.com/boishakhi-mukta/CivicClean",
     live: "https://civic-clean-oslo.netlify.app/",
     challenges: [
       "Designing a secure role-based access system (citizen / staff / admin) using Firebase JWT verification on a custom Express backend, with route guards both client- and server-side.",
@@ -90,7 +90,7 @@ export const projectsData = [
     ],
     description:
       "Smart Deal is a secondhand marketplace where users can buy, sell, and bid on products through a clean and intuitive interface. Users can post products for sale with images and descriptions, place bids on listings, track their active bids, manage their own listings, and edit or delete products from their personal dashboard. The dual-role design means any user can seamlessly act as both a buyer and a seller within the same account.",
-    github: "https://github.com/Boishakhi11/SecondLifeHub-client",
+    github: "https://github.com/boishakhi-mukta/SecondLifeHub-client",
     live: null,
     challenges: [
       "Designing a dual-role UX where the same user can switch between acting as a buyer and a seller without context confusion in the dashboard.",
@@ -122,7 +122,7 @@ export const projectsData = [
     ],
     description:
       "Developed for Nettverkshuset, a Norwegian organisation, to showcase Scale-Up programme participants. The platform allows candidates to log in with Google OAuth, register their professional details with dynamic photo uploads, and generates a shareable portfolio page for each candidate. It features full Norwegian/English localisation, glassmorphism UI elements, micro-animations, and was built using AI-directed development techniques with Google Antigravity.",
-    github: "https://github.com/Boishakhi11/Scale-up-project",
+    github: "https://github.com/boishakhi-mukta/Scale-up-project",
     live: "https://scale-up-woman.netlify.app/",
     challenges: [
       "Implementing full i18n (Norwegian / English) across all routes and components while keeping the codebase DRY and maintainable in TypeScript.",
