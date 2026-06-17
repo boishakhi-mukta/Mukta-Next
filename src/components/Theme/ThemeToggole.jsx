@@ -1,37 +1,37 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 
 const ThemeToggle = () => {
-  // Start with default theme to match server render, read localStorage after mount
-  const [theme, setTheme] = useState("boishakhi-light");
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("theme") || "boishakhi-light";
-    setTheme(saved);
-    document.documentElement.setAttribute("data-theme", saved);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
-  const toggleTheme = () => {
-    const newTheme =
-      theme === "boishakhi-light" ? "boishakhi-dark" : "boishakhi-light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
+  if (!mounted) {
+    return (
+      <button
+        className="btn btn-circle btn-ghost border border-base-300"
+        aria-label="Toggle theme"
+      />
+    );
+  }
+
+  const isDark = theme === "boishakhi-dark";
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={() => setTheme(isDark ? "boishakhi-light" : "boishakhi-dark")}
       className="btn btn-circle btn-ghost border border-base-300"
       aria-label="Toggle theme"
       title="Toggle theme"
     >
-      {theme === "boishakhi-light" ? (
-        <FiMoon className="text-lg" />
-      ) : (
+      {isDark ? (
         <FiSun className="text-lg" />
+      ) : (
+        <FiMoon className="text-lg" />
       )}
     </button>
   );

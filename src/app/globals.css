@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.mjs";
 @plugin "daisyui";
 
 /* Light theme */
@@ -39,7 +40,7 @@
   --noise: 0;
 }
 
-/* Dark theme */
+/* Dark theme — same purple hue family, shifted for dark surfaces */
 @plugin "daisyui/theme" {
   name: "boishakhi-dark";
   default: false;
@@ -49,19 +50,19 @@
   --color-base-100: #0f0b17;
   --color-base-200: #171120;
   --color-base-300: #20182d;
-  --color-base-content: #f5f1fb;
+  --color-base-content: #f0ecfa;
 
-  --color-primary: #8a61c1;
+  --color-primary: #9d78d9;
   --color-primary-content: #ffffff;
 
-  --color-secondary: #744ca0;
+  --color-secondary: #8a61c1;
   --color-secondary-content: #ffffff;
 
-  --color-accent: #b79af0;
-  --color-accent-content: #120c1b;
+  --color-accent: #c4a8f0;
+  --color-accent-content: #1c1328;
 
   --color-neutral: #261c35;
-  --color-neutral-content: #f5f1fb;
+  --color-neutral-content: #f0ecfa;
 
   --color-info: #60a5fa;
   --color-success: #22c55e;
@@ -81,13 +82,44 @@ html {
   scroll-behavior: smooth;
 }
 
-body,
-* {
-  font-family: var(--font-plus-jakarta-sans), "Plus Jakarta Sans", sans-serif;
+/* Smooth theme transitions */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 300ms ease,
+    color 200ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease;
 }
 
+/* Exclude motion-sensitive properties from the blanket transition */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
+/* Base fonts */
+body,
+* {
+  font-family: var(--font-inter), "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+}
+
+/* Logo / display heading class */
 .orbitron {
-  font-family: var(--font-orbitron), "Orbitron", sans-serif;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
 }
 
 /* -------- Minimal motion utilities -------- */
@@ -95,7 +127,7 @@ body,
   display: inline-flex;
   will-change: transform;
   transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 }
 
 .tilt {
@@ -104,7 +136,7 @@ body,
   will-change: transform;
   transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
     rotateY(var(--tilt-y, 0deg));
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 }
 
 .tilt-inner {
@@ -119,7 +151,7 @@ body,
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 200ms ease;
+  transition: opacity 200ms ease !important;
   z-index: 0;
   background: radial-gradient(
     circle at 50% 50%,
@@ -179,7 +211,7 @@ body,
   height: 6px;
   border-radius: 9999px;
   background: color-mix(in oklab, var(--color-primary) 70%, white 30%);
-  transition: opacity 180ms ease;
+  transition: opacity 180ms ease !important;
 }
 
 .app-cursor-ring {
@@ -191,7 +223,7 @@ body,
     width 180ms ease,
     height 180ms ease,
     opacity 180ms ease,
-    border-color 180ms ease;
+    border-color 180ms ease !important;
 }
 
 :root.cursor-hover .app-cursor-ring {
