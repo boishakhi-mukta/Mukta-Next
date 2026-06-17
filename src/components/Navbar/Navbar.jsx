@@ -1,18 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ThemeToggle from "../Theme/ThemeToggole";
 import Magnetic from "../Motion/Magnetic";
 
-const Navbar = () => {
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-  ];
+const navItems = [
+  { name: "Home", href: "#home", id: "home" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Projects", href: "#projects", id: "projects" },
+];
 
-  const linkClass =
-    "relative text-[15px] font-medium text-base-content/80 transition-colors duration-300 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full";
+const Navbar = () => {
+  const [active, setActive] = useState("home");
+
+  useEffect(() => {
+    const sections = navItems
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => sections.forEach((s) => observer.unobserve(s));
+  }, []);
+
+  const linkClass = (id) =>
+    [
+      "relative text-[15px] font-medium transition-colors duration-300",
+      "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
+      active === id
+        ? "text-primary after:w-full"
+        : "text-base-content/70 hover:text-primary after:w-0 hover:after:w-full",
+    ].join(" ");
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full glass-nav">
@@ -35,7 +62,7 @@ const Navbar = () => {
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Magnetic strength={0.14} max={8}>
-                    <a href={item.href} className={linkClass} data-cursor="hover">
+                    <a href={item.href} className={linkClass(item.id)} data-cursor="hover">
                       {item.name}
                     </a>
                   </Magnetic>
@@ -58,12 +85,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </label>
             <ul
@@ -74,7 +96,7 @@ const Navbar = () => {
                 <li key={item.name}>
                   <a
                     href={item.href}
-                    className="font-medium hover:text-primary transition-colors"
+                    className={`font-medium transition-colors ${active === item.id ? "text-primary" : "hover:text-primary"}`}
                     data-cursor="hover"
                   >
                     {item.name}

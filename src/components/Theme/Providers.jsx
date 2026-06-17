@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
+import LenisProvider from "@/components/Motion/LenisProvider";
 
 export default function Providers({ children }) {
   return (
@@ -10,7 +11,7 @@ export default function Providers({ children }) {
       themes={["boishakhi-light", "boishakhi-dark"]}
       enableSystem={false}
     >
-      {children}
+      <LenisProvider>{children}</LenisProvider>
     </ThemeProvider>
   );
 }

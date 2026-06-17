@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AnimationManager — Example</title>
+
+  <!-- GSAP (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+  <!-- SplitType (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3/dist/umd/index.min.js"></script>
+
+  <!-- Animation system styles -->
+  <link rel="stylesheet" href="./animations.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5fb;
+      --bg2: #efeaf7;
+      --surface: #fff;
+      --border: #e4dcef;
+      --text: #20182d;
+      --text-muted: #7a6a94;
+      --primary: #744ca0;
+      --primary-c: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: auto; } /* Lenis owns scrolling */
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ─────────────────────────────────────────── */
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      background: rgba(247, 245, 251, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: .03em;
+      color: var(--primary);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a.am-nav-link {
+      text-decoration: none;
+      color: var(--text);
+      font-size: .875rem;
+      font-weight: 500;
+    }
+
+    /* ── Sections ─────────────────────────────────────── */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    #hero {
+      background: var(--bg2);
+      text-align: center;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    [data-hero-title] {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+
+    [data-hero-title] em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--primary), #a98be0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-hero-subtitle] {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Buttons ──────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.75rem;
+      border-radius: 9999px;
+      font-size: .875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--primary-c);
+      box-shadow: 0 4px 20px rgba(116, 76, 160, .3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+
+    /* ── Stats ────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    /* ── Cards ────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    .card p {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Image reveal demo ────────────────────────────── */
+    .img-demo {
+      width: 100%;
+      max-width: 640px;
+      border-radius: 1.25rem;
+      display: block;
+      height: 360px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #744ca0, #a98be0);
+    }
+
+    /* ── Perspective demo ─────────────────────────────── */
+    .perspective-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      width: 320px;
+    }
+
+    /* ── Magnetic demo ────────────────────────────────── */
+    .magnetic-group {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ── Section labels ───────────────────────────────── */
+    .section-label {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Carousel demo override ───────────────────────── */
+    #carousel { padding: 0; }
+
+    /* ── Footer ───────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: .8125rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <header>
+    <nav>
+      <span class="logo">PORTFOLIO</span>
+      <ul>
+        <li><a href="#hero" class="am-nav-link">Home</a></li>
+        <li><a href="#stats" class="am-nav-link">Stats</a></li>
+        <li><a href="#cards" class="am-nav-link">Works</a></li>
+        <li><a href="#carousel" class="am-nav-link">Projects</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── Hero ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <h1 data-hero-title>
+      Hello, I'm <em>Boishakhi</em>
+    </h1>
+    <p data-hero-subtitle>
+      Full-Stack Software Engineer building clean, performant, user-focused experiences.
+    </p>
+    <div class="hero-cta" data-hero-cta>
+      <button class="btn btn-primary am-btn am-magnetic">See My Work</button>
+      <button class="btn btn-outline am-btn am-magnetic">Download CV</button>
+    </div>
+  </section>
+
+  <!-- ── Stats / Count-up ──────────────────────────────────── -->
+  <section id="stats" style="background: var(--bg);">
+    <div class="container">
+      <span class="section-label">By the numbers</span>
+      <p class="section-title">A few highlights</p>
+
+      <div class="stats-grid">
+        <div class="am-stat am-fade-up">
+          <span class="am-stat-value" data-count="4" data-count-suffix="+">0</span>
+          <span class="am-stat-label">Years experience</span>
+        </div>
+        <div class="am-stat am-fade-up">
+          <span class="am-stat-value" data-count="12" data-count-suffix="+">0</span>
+          <span class="am-stat-label">Projects shipped</span>
+        </div>
+        <div class="am-stat am-fade-up">
+          <span class="am-stat-value" data-count="2">0</span>
+          <span class="am-stat-label">Publications</span>
+        </div>
+        <div class="am-stat am-fade-up">
+          <span class="am-stat-value" data-count="99" data-count-suffix="%">0</span>
+          <span class="am-stat-label">Coffee satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Staggered cards ────────────────────────────────────── -->
+  <section id="cards" style="background: var(--bg2);">
+    <div class="container">
+      <span class="section-label">Recent work</span>
+      <p class="section-title">Selected Projects</p>
+
+      <div class="cards-grid am-cards">
+        <article class="card am-card am-perspective">
+          <h3>Pet Care Center</h3>
+          <p>Responsive booking platform for pet winter care services in Norway with Firebase auth and AOS animations.</p>
+        </article>
+        <article class="card am-card am-perspective">
+          <h3>CivicClean</h3>
+          <p>Full-stack civic issue reporting system with role-based dashboards, Leaflet maps, and real-time upvotes.</p>
+        </article>
+        <article class="card am-card am-perspective">
+          <h3>Smart Deal</h3>
+          <p>Secondhand marketplace with dual buyer/seller roles, bidding system, and personal dashboards.</p>
+        </article>
+        <article class="card am-card am-perspective">
+          <h3>Portfolio Generator</h3>
+          <p>Bilingual Norwegian/English portfolio showcase built for Nettverkshuset's Scale-Up programme.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Image reveal ───────────────────────────────────────── -->
+  <section style="background: var(--bg); flex-direction: column; gap: 2rem;">
+    <div class="container" style="text-align:center;">
+      <span class="section-label">Reveal</span>
+      <p class="section-title">Image animations</p>
+      <div style="display:flex; justify-content:center;">
+        <div class="img-demo am-img-reveal"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Magnetic + Buttons ─────────────────────────────────── -->
+  <section style="background: var(--bg2); flex-direction: column; gap: 2rem;">
+    <div class="container" style="text-align:center;">
+      <span class="section-label">Interactive</span>
+      <p class="section-title">Magnetic buttons</p>
+      <div class="magnetic-group">
+        <button class="btn btn-primary am-btn am-magnetic">Hover me</button>
+        <button class="btn btn-outline am-btn am-magnetic" data-magnetic-strength="0.5">Strong pull</button>
+        <button class="btn btn-primary am-btn">Ripple only</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Horizontal carousel ────────────────────────────────── -->
+  <section id="carousel" class="am-carousel-wrapper">
+    <div class="am-carousel-track">
+      <div class="am-carousel-item">
+        <div class="am-carousel-img" style="background:linear-gradient(135deg,#744ca0,#a98be0);"></div>
+        <div class="am-carousel-content">
+          <h3>Pet Care Center</h3>
+          <p>React 19 · Firebase · Tailwind CSS</p>
+        </div>
+      </div>
+      <div class="am-carousel-item">
+        <div class="am-carousel-img" style="background:linear-gradient(135deg,#8a61c1,#c4a8f0);"></div>
+        <div class="am-carousel-content">
+          <h3>CivicClean</h3>
+          <p>Node.js · MongoDB · Leaflet</p>
+        </div>
+      </div>
+      <div class="am-carousel-item">
+        <div class="am-carousel-img" style="background:linear-gradient(135deg,#20182d,#744ca0);"></div>
+        <div class="am-carousel-content">
+          <h3>Smart Deal</h3>
+          <p>React · Express · MongoDB</p>
+        </div>
+      </div>
+    </div>
+    <div class="am-carousel-hint">Scroll to explore →</div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer>
+    <p>© 2026 Boishakhi Ghosh Mukta — Powered by GSAP · Lenis · SplitType</p>
+  </footer>
+
+  <script type="module">
+    /**
+     * Vanilla ES-module bootstrap for AnimationManager.
+     *
+     * In a real project you would import from the built path, e.g.:
+     *   import { AnimationManager } from './AnimationManager.js'
+     *
+     * Here we inline a slim version that works with the CDN globals
+     * (gsap, ScrollTrigger, Lenis, SplitType are already on window).
+     */
+
+    gsap.registerPlugin(ScrollTrigger)
+
+    // ── Lenis setup ────────────────────────────────────────
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: t => Math.min(1, 1.001 - 2 ** (-10 * t)),
+      touchMultiplier: 1.5,
+    })
+
+    const tick = time => lenis.raf(time * 1000)
+    gsap.ticker.add(tick)
+    gsap.ticker.lagSmoothing(0)
+    lenis.on('scroll', ScrollTrigger.update)
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) {
+      document.documentElement.dataset.reducedMotion = 'true'
+    }
+
+    if (!reducedMotion) {
+      // ── Progress bar ──────────────────────────────────────
+      const bar = Object.assign(document.createElement('div'), { className: 'am-progress-bar' })
+      document.querySelector('header').appendChild(bar)
+      gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 'top top', end: 'bottom bottom', scrub: 0.25 } })
+
+      // ── Nav hide/show ─────────────────────────────────────
+      const nav = document.querySelector('header')
+      let last = 0, hidden = false
+      lenis.on('scroll', ({ scroll, velocity }) => {
+        if (scroll <= 80) { gsap.to(nav, { y: 0, duration: 0.4 }); hidden = false; last = scroll; return }
+        if (velocity > 0.25 && scroll > last && !hidden) { gsap.to(nav, { y: '-100%', duration: 0.3, ease: 'power3.in' }); hidden = true }
+        else if (velocity < -0.25 && scroll < last && hidden) { gsap.to(nav, { y: 0, duration: 0.45, ease: 'power3.out' }); hidden = false }
+        last = scroll
+      })
+
+      // ── Hero title split ──────────────────────────────────
+      const titleEl = document.querySelector('[data-hero-title]')
+      if (titleEl) {
+        const split = new SplitType(titleEl, { types: 'chars,words' })
+        gsap.from(split.chars, { y: '105%', opacity: 0, rotateX: -80, stagger: 0.08, duration: 0.7, ease: 'back.out(1.4)', delay: 0.15 })
+      }
+
+      // ── Hero subtitle + cta ───────────────────────────────
+      const sub = document.querySelector('[data-hero-subtitle]')
+      if (sub) gsap.from(sub, { opacity: 0, y: 18, duration: 0.65, delay: 1.4, ease: 'power3.out' })
+      const cta = document.querySelector('[data-hero-cta]')
+      if (cta) gsap.from(cta, { opacity: 0, y: 14, duration: 0.6, delay: 1.7, ease: 'power3.out' })
+
+      // ── Fade-up ───────────────────────────────────────────
+      gsap.utils.toArray('.am-fade-up').forEach(el => {
+        gsap.from(el, { opacity: 0, y: 40, duration: 0.75, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' } })
+      })
+
+      // ── Staggered cards ───────────────────────────────────
+      gsap.utils.toArray('.am-cards').forEach(c => {
+        const cards = gsap.utils.toArray('.am-card', c)
+        gsap.from(cards, { opacity: 0, y: 28, x: i => i % 2 === 0 ? -30 : 30, stagger: 0.09, duration: 0.6, ease: 'power2.out', scrollTrigger: { trigger: c, start: 'top 82%', toggleActions: 'play none none none' } })
+      })
+
+      // ── Image reveal ──────────────────────────────────────
+      gsap.utils.toArray('.am-img-reveal').forEach(img => {
+        gsap.from(img, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.1, ease: 'power4.out', scrollTrigger: { trigger: img, start: 'top 82%', toggleActions: 'play none none none' } })
+      })
+
+      // ── Buttons: scale hover + ripple ─────────────────────
+      const spawnRipple = e => {
+        const btn = e.target.closest('.am-btn'); if (!btn) return
+        const r = btn.getBoundingClientRect()
+        const size = Math.max(r.width, r.height) * 2.2
+        const span = Object.assign(document.createElement('span'), { className: 'am-ripple' })
+        span.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`
+        btn.appendChild(span)
+        gsap.fromTo(span, { scale: 0, opacity: 0.4 }, { scale: 1, opacity: 0, duration: 0.55, ease: 'power2.out', onComplete: () => span.remove() })
+      }
+      document.addEventListener('mouseenter', e => { if (e.target?.closest('.am-btn')) gsap.to(e.target.closest('.am-btn'), { scale: 1.05, duration: 0.2 }) }, true)
+      document.addEventListener('mouseleave', e => { if (e.target?.closest('.am-btn')) gsap.to(e.target.closest('.am-btn'), { scale: 1, duration: 0.4, ease: 'elastic.out(1,0.5)' }) }, true)
+      document.addEventListener('click', spawnRipple)
+
+      // ── Magnetic ──────────────────────────────────────────
+      document.querySelectorAll('.am-magnetic').forEach(el => {
+        const s = parseFloat(el.dataset.magneticStrength ?? '0.35')
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect()
+          gsap.to(el, { x: (e.clientX - r.left - r.width/2) * s, y: (e.clientY - r.top - r.height/2) * s, duration: 0.5, ease: 'power3.out' })
+        })
+        el.addEventListener('mouseleave', () => gsap.to(el, { x: 0, y: 0, duration: 0.75, ease: 'elastic.out(1,0.4)' }))
+      })
+
+      // ── 3D perspective tilt ───────────────────────────────
+      document.querySelectorAll('.am-perspective').forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect()
+          gsap.to(el, { rotateX: ((e.clientY-r.top-r.height/2)/(r.height/2))*-7, rotateY: ((e.clientX-r.left-r.width/2)/(r.width/2))*7, transformPerspective: 900, duration: 0.4, ease: 'power2.out' })
+        })
+        el.addEventListener('mouseleave', () => gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.65, ease: 'elastic.out(1,0.5)' }))
+      })
+
+      // ── Count-up ──────────────────────────────────────────
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const end = parseFloat(el.dataset.count), sfx = el.dataset.countSuffix ?? '', dec = parseInt(el.dataset.countDecimals ?? '0'), p = { val: 0 }
+        gsap.to(p, { val: end, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, onUpdate() { el.textContent = p.val.toFixed(dec) + sfx } })
+      })
+
+      // ── Horizontal carousel ───────────────────────────────
+      const track = document.querySelector('.am-carousel-track')
+      if (track) {
+        const items = gsap.utils.toArray('.am-carousel-item', track)
+        if (items.length > 1) {
+          const getMove = () => track.scrollWidth - window.innerWidth
+          gsap.to(track, {
+            x: () => -getMove(), ease: 'none',
+            scrollTrigger: {
+              trigger: '.am-carousel-wrapper', pin: true, start: 'top top', end: () => `+=${getMove()}`,
+              scrub: 1, invalidateOnRefresh: true,
+              snap: { snapTo: 1/(items.length-1), duration: { min:.2, max:.4 }, ease: 'power1.inOut' },
+            }
+          })
+          items.forEach(item => {
+            const img = item.querySelector('.am-carousel-img')
+            const content = item.querySelector('.am-carousel-content')
+            if (img) {
+              item.addEventListener('mouseenter', () => gsap.to(img, { scale: 1.07, duration: 0.4, ease: 'power2.out' }))
+              item.addEventListener('mouseleave', () => gsap.to(img, { scale: 1, duration: 0.5, ease: 'power2.out' }))
+            }
+            if (content) {
+              item.addEventListener('mouseenter', () => gsap.to(content, { y: -8, duration: 0.3 }))
+              item.addEventListener('mouseleave', () => gsap.to(content, { y: 0, duration: 0.4 }))
+            }
+          })
+        }
+      }
+
+      ScrollTrigger.refresh()
+    }
+  </script>
+</body>
+</html>

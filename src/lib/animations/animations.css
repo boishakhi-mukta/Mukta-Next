@@ -1,0 +1,307 @@
+/* ============================================================
+   animations.css — AnimationManager supporting styles
+   Prefix: am-   (avoids conflicts with Tailwind / DaisyUI)
+   ============================================================ */
+
+/* ─── CSS custom properties ──────────────────────────────────
+   Override these in your :root or data-theme block.         */
+:root {
+  --am-primary: #744ca0;
+  --am-primary-dark: #9d78d9;
+  --am-ripple-bg: rgba(255, 255, 255, 0.32);
+  --am-progress-height: 2px;
+  --am-progress-radius: 0;
+  --am-carousel-item-width: 78vw;
+  --am-carousel-item-max: 900px;
+  --am-carousel-gap: 3vw;
+  --am-card-radius: 1.25rem;
+  --am-easing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="boishakhi-dark"],
+.dark {
+  --am-primary: #9d78d9;
+  --am-ripple-bg: rgba(255, 255, 255, 0.18);
+}
+
+/* ─── Prefers reduced motion ─────────────────────────────────
+   Immediately reveal hidden elements; skip all transforms.  */
+@media (prefers-reduced-motion: reduce),
+       ([data-reduced-motion="true"]) {
+  .am-fade-up,
+  [data-hero-title],
+  [data-hero-subtitle],
+  [data-hero-cta],
+  .am-img-reveal,
+  .am-3d-section {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .am-btn,
+  .am-magnetic,
+  .am-perspective {
+    transform: none !important;
+  }
+}
+
+/* ─── Scroll progress bar ─────────────────────────────────── */
+.am-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--am-progress-height);
+  background: var(--am-primary);
+  transform-origin: left center;
+  transform: scaleX(0);         /* GSAP drives this to scaleX(1) */
+  border-radius: var(--am-progress-radius);
+  pointer-events: none;
+  z-index: 200;
+  will-change: transform;
+}
+
+/* ─── Fade-up utility ─────────────────────────────────────── */
+.am-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+/* ─── Image reveal (clip-path) ────────────────────────────── */
+.am-img-reveal {
+  clip-path: inset(0% 0% 0% 0%);
+  will-change: clip-path;
+}
+
+/* ─── 3D section ──────────────────────────────────────────── */
+.am-3d-section {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* ─── Perspective hover element ───────────────────────────── */
+.am-perspective {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ─── Hero title split ────────────────────────────────────── */
+[data-hero-title] .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+[data-hero-title] .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+[data-hero-subtitle],
+[data-hero-cta] {
+  will-change: transform, opacity;
+}
+
+/* ─── Interactive button ──────────────────────────────────── */
+.am-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  will-change: transform;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ripple element injected by JS on click */
+.am-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--am-ripple-bg);
+  pointer-events: none;
+  z-index: 1;
+  /* GSAP drives scale 0 → 1, opacity 0.4 → 0 */
+}
+
+/* ─── Magnetic element ────────────────────────────────────── */
+.am-magnetic {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Disable magnetic pull on coarse-pointer devices */
+@media (pointer: coarse) {
+  .am-magnetic {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* ─── Cards stagger container ─────────────────────────────── */
+.am-cards {
+  /* no styles needed — GSAP reads children */
+}
+
+.am-card {
+  will-change: transform, opacity;
+}
+
+/* ─── Horizontal carousel ─────────────────────────────────── */
+.am-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100svh;        /* 100svh avoids mobile chrome bar issues */
+  min-height: 480px;
+}
+
+.am-carousel-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: var(--am-carousel-gap);
+  padding: 0 var(--am-carousel-gap);
+  will-change: transform;
+}
+
+.am-carousel-item {
+  flex-shrink: 0;
+  width: var(--am-carousel-item-width);
+  max-width: var(--am-carousel-item-max);
+  height: 70%;
+  border-radius: var(--am-card-radius);
+  overflow: hidden;
+  position: relative;
+  background: var(--color-base-200, #efeaf7);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.am-carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transition: none; /* GSAP owns this */
+}
+
+.am-carousel-content {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 2rem 1.75rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  color: #fff;
+  will-change: transform;
+}
+
+.am-carousel-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  line-height: 1.3;
+}
+
+.am-carousel-content p {
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Scroll hint arrow for carousel */
+.am-carousel-hint {
+  position: absolute;
+  bottom: 2rem;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ─── Count-up ────────────────────────────────────────────── */
+[data-count] {
+  font-variant-numeric: tabular-nums;
+  will-change: contents;
+}
+
+/* ─── Stat cards (common pattern for count-up) ────────────── */
+.am-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.am-stat-value {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--am-primary);
+}
+
+.am-stat-label {
+  font-size: 0.8125rem;
+  opacity: 0.6;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Velocity rotation target ────────────────────────────── */
+[data-rotate-on-scroll] {
+  will-change: transform;
+  display: inline-block;
+}
+
+/* ─── Nav underline (used by Navbar linkClass) ────────────── */
+.am-nav-link {
+  position: relative;
+}
+
+.am-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--am-primary);
+  transition: width 0.28s var(--am-easing);
+}
+
+.am-nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── GPU-acceleration helpers ────────────────────────────── */
+.am-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ─── Mobile overrides ────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --am-carousel-item-width: 88vw;
+    --am-carousel-gap: 5vw;
+  }
+
+  .am-carousel-item {
+    height: 60%;
+  }
+
+  /* Reduce parallax intensity on mobile */
+  [data-hero-image] {
+    transform: none !important;
+  }
+}

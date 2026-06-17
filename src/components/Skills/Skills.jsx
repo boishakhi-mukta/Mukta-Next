@@ -12,6 +12,7 @@ import {
   FaNodeJs,
   FaCode,
 } from "react-icons/fa";
+
 import {
   SiTailwindcss,
   SiDaisyui,
@@ -25,9 +26,10 @@ import {
   SiMysql,
   SiTypescript,
   SiOpenai,
-  SiGithubcopilot,
   SiGoogle,
   SiClaude,
+  SiNextdotjs,
+  SiGooglegemini,
 } from "react-icons/si";
 
 const skillGroups = [
@@ -37,6 +39,7 @@ const skillGroups = [
     accentClass: "bg-primary",
     skills: [
       { name: "React", icon: <FaReact color="#61DAFB" /> },
+      { name: "Next.js", icon: <SiNextdotjs /> },
       { name: "JavaScript", icon: <FaJs color="#F7DF1E" /> },
       { name: "TypeScript", icon: <SiTypescript color="#3178C6" /> },
       { name: "HTML5", icon: <FaHtml5 color="#E34F26" /> },
@@ -77,6 +80,7 @@ const skillGroups = [
     skills: [
       { name: "Codex", icon: <SiOpenai /> },
       { name: "Cursor", icon: <FaCode /> },
+      { name: "Gemini", icon: <SiGooglegemini color="#4285F4" /> },
       { name: "Google Antigravity", icon: <SiGoogle color="#4285F4" /> },
       { name: "Claude", icon: <SiClaude color="#D97757" /> },
     ],
@@ -109,7 +113,7 @@ const Skills = () => {
           <div className="grid gap-6 lg:grid-cols-2">
             {skillGroups.map((group) => (
               <Tilt key={group.title} className="rounded-2xl h-full" maxTilt={5}>
-                <article className="group h-full rounded-2xl bg-base-100 p-5 md:p-6 shadow-sm hover:shadow-xl transition duration-300 border border-base-300 hover:border-primary/30">
+                <article className="group flex flex-col h-full min-h-72 rounded-2xl bg-base-100 p-5 md:p-6 shadow-sm hover:shadow-xl transition duration-300 border border-base-300 hover:border-primary/30">
                   <div className={`mb-4 h-1 w-10 rounded-full ${group.accentClass}`}></div>
                   <div className="mb-5">
                     <h3 className="text-lg font-bold text-base-content">{group.title}</h3>
@@ -117,7 +121,7 @@ const Skills = () => {
                       {group.subtitle}
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mt-auto">
                     {group.skills.map((skill) => (
                       <div
                         key={skill.name}

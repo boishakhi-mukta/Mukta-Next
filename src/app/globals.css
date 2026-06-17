@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @config "../../tailwind.config.mjs";
 @plugin "daisyui";
+@import "../lib/animations/animations.css";
 
 /* Light theme */
 @plugin "daisyui/theme" {
@@ -194,7 +195,6 @@ h6 {
 
 /* -------- Glassmorphism navbar -------- */
 .glass-nav {
-  position: relative;
   background: color-mix(in srgb, var(--color-base-100) 70%, transparent);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
