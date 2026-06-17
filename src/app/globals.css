@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Light theme */
+@plugin "daisyui/theme" {
+  name: "boishakhi-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #f7f5fb;
+  --color-base-200: #efeaf7;
+  --color-base-300: #e4dcef;
+  --color-base-content: #20182d;
+
+  --color-primary: #744ca0;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #8a61c1;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #a98be0;
+  --color-accent-content: #1c1328;
+
+  --color-neutral: #2c1f3f;
+  --color-neutral-content: #ffffff;
+
+  --color-info: #60a5fa;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Dark theme */
+@plugin "daisyui/theme" {
+  name: "boishakhi-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #0f0b17;
+  --color-base-200: #171120;
+  --color-base-300: #20182d;
+  --color-base-content: #f5f1fb;
+
+  --color-primary: #8a61c1;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #744ca0;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #b79af0;
+  --color-accent-content: #120c1b;
+
+  --color-neutral: #261c35;
+  --color-neutral-content: #f5f1fb;
+
+  --color-info: #60a5fa;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #f87171;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+* {
+  font-family: var(--font-plus-jakarta-sans), "Plus Jakarta Sans", sans-serif;
+}
+
+.orbitron {
+  font-family: var(--font-orbitron), "Orbitron", sans-serif;
+}
+
+/* -------- Minimal motion utilities -------- */
+.magnetic {
+  display: inline-flex;
+  will-change: transform;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tilt-inner {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0) 55%
+  );
+  mix-blend-mode: overlay;
+}
+
+.tilt.tilt-active .tilt-glare {
+  opacity: 1;
+}
+
+@keyframes floatIdle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.float-idle {
+  animation: floatIdle 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-idle {
+    animation: none;
+  }
+}
+
+/* -------- Custom cursor -------- */
+:root.cursor-enabled body {
+  cursor: none;
+}
+
+:root.cursor-enabled a,
+:root.cursor-enabled button,
+:root.cursor-enabled [role="button"] {
+  cursor: none;
+}
+
+.app-cursor-dot,
+.app-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  translate: -50% -50%;
+}
+
+.app-cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--color-primary) 70%, white 30%);
+  transition: opacity 180ms ease;
+}
+
+.app-cursor-ring {
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklab, var(--color-primary) 55%, transparent);
+  transition:
+    width 180ms ease,
+    height 180ms ease,
+    opacity 180ms ease,
+    border-color 180ms ease;
+}
+
+:root.cursor-hover .app-cursor-ring {
+  width: 42px;
+  height: 42px;
+  border-color: color-mix(in oklab, var(--color-primary) 75%, transparent);
+}
+
+:root.cursor-pressed .app-cursor-ring {
+  width: 26px;
+  height: 26px;
+}
+
+@media (pointer: coarse) {
+  .app-cursor-dot,
+  .app-cursor-ring {
+    display: none;
+  }
+
+  :root.cursor-enabled body {
+    cursor: auto;
+  }
+}
