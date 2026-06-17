@@ -15,7 +15,7 @@ const Navbar = () => {
     "relative text-lg font-semibold text-base-content transition-colors duration-300 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full";
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-base-300 bg-base-100/90 backdrop-blur-md shadow-sm">
+    <header className="fixed top-0 left-0 z-50 w-full glass-nav">
       <div className="w-11/12 mx-auto h-20 flex items-center justify-between">
         {/* Logo */}
         <Magnetic strength={0.18} max={10}>
