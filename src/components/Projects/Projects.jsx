@@ -9,11 +9,6 @@ import Magnetic from "../Motion/Magnetic";
 
 import smartDealImg from "../../assets/smartdeals.png";
 import petCareImg from "../../assets/petcare.png";
-import vocabularyImg from "../../assets/english.png";
-import mobileBankImg from "../../assets/mobileapp.png";
-import newsDeskImg from "../../assets/News.jpg";
-import greenEarthImg from "../../assets/greenearth.png";
-import appStoreImg from "../../assets/appstore.png";
 import civicCleanImg from "../../assets/CivicClean.png";
 import portfolioGeneratorImg from "../../assets/portfolio.png";
 
@@ -62,51 +57,6 @@ const projectsData = [
     live: "https://github.com/Boishakhi11/SecondLifeHub-client",
   },
   {
-    title: "App-Store",
-    image: appStoreImg,
-    tech: ["React", "Tailwind CSS"],
-    description:
-      "Built a frontend application simulating an app store, enabling users to browse apps, view details, and perform install/uninstall actions. Implemented dynamic state management for handling app installation status and UI updates.",
-    github: "https://github.com/Boishakhi11/App-Store",
-    live: "https://bappstore.netlify.app/",
-  },
-  {
-    title: "Vocabulary Learning App",
-    image: vocabularyImg,
-    tech: ["HTML", "JavaScript", "Tailwind CSS", "DaisyUI"],
-    description:
-      "An interactive vocabulary learning web app designed to make language learning more engaging. Users can search words, open modal-based details, and listen to audio pronunciation through real-time API integration.",
-    github: "https://github.com/Boishakhi11/english-window",
-    live: "https://boishakhi11.github.io/english-window/",
-  },
-  {
-    title: "Mobile Bank App",
-    image: mobileBankImg,
-    tech: ["HTML", "JavaScript", "Tailwind CSS", "DaisyUI"],
-    description:
-      "A mobile-first banking interface that simulates common financial actions in a secure and organized layout. The app includes mobile-number login, cash in and cash out, transfers, bill payments, and transaction history.",
-    github: "https://github.com/Boishakhi11/Mobile-App",
-    live: "https://boishakhi11.github.io/Mobile-App/",
-  },
-  {
-    title: "The News Desk",
-    image: newsDeskImg,
-    tech: ["React", "React Router", "Firebase", "Context API", "Vite"],
-    description:
-      "The News Desk is a modern news web application where users can browse categorized news, create an account, log in securely, and access protected routes. It uses Firebase Authentication, React Router, Context API, and a responsive layout.",
-    github: "https://github.com/Boishakhi11/The-News-Desk",
-    live: "https://newsdeskk.netlify.app",
-  },
-  {
-    title: "Green Earth Campaign",
-    image: greenEarthImg,
-    tech: ["HTML", "JavaScript", "Tailwind CSS", "DaisyUI"],
-    description:
-      "Green Earth Campaign is a plant-focused web application with dynamic category loading, detailed product modals, and cart functionality. Users can browse plants by category, view full details, add items to cart, remove them, and see the total price update in real time.",
-    github: "https://github.com/Boishakhi11/Green-Earth-Campaign",
-    live: "https://boishakhi11.github.io/Green-Earth-Campaign/",
-  },
-  {
     title: "Portfolio Generator",
     image: portfolioGeneratorImg,
     tech: ["React", "Tailwind CSS", "TypeScript", "Google Antigravity", "AI Development"],
@@ -120,7 +70,6 @@ const projectsData = [
 const filters = [
   "All",
   "React",
-  "JavaScript",
   "Node.js",
   "MongoDB",
   "Firebase",
