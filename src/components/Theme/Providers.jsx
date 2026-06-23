@@ -14,8 +14,8 @@ export default function Providers({ children }) {
     >
       <LenisProvider>{children}</LenisProvider>
 
-      {/* Fixed bottom-left theme toggle */}
-      <div className="fixed bottom-5 left-5 z-60 rounded-full bg-base-100 border border-base-300 shadow-md">
+      {/* Fixed bottom-right theme toggle */}
+      <div className="fixed bottom-5 right-5 z-60 rounded-full bg-base-100 border border-base-300 shadow-md">
         <ThemeToggle />
       </div>
     </ThemeProvider>

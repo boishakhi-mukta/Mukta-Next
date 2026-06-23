@@ -6,25 +6,19 @@ import { FiExternalLink } from "react-icons/fi";
 const publications = [
   {
     title:
-      "Physics-Guided Deep Learning for Heat Pump Stress Detection: A Comprehensive Analysis on When2Heat Dataset",
-    year: "2025",
-    venue: "arXiv preprint",
-    link: "#",
+      "Gamification in Learning Management Systems: A Systematic Literature Review",
+    year: "2024",
+    venue: "Information, 16(12), 1094 — MDPI",
+    authors: "Lampropoulos, G., Ghosh Mukta, B., & Anastasiadis, T.",
+    link: "https://doi.org/10.3390/info16120094",
   },
   {
     title:
-      "Real-Time Traffic Sign Detection for Autonomous Vehicles Using YOLOv11",
-    year: "2025",
-    venue:
-      "2025 International Conference on Electrical, Computer and Communication Engineering",
-    link: "#",
-  },
-  {
-    title:
-      "Hotel Booking Cancellation Prediction Using Applied Bayesian Models",
+      "A Collaborative Digital Platform for Charity Thrift Store Workers",
     year: "2024",
     venue:
-      "2024 International Conference on Decision Aid Sciences and Applications",
+      "ACHI 2024 — International Conference on Advances in Computer-Human Interactions, Østfold University College, Norway",
+    authors: "Pathari, F. J., Kabir, E., Ghosh Mukta, B., & Karlsen, J.",
     link: "#",
   },
 ];
@@ -43,8 +37,8 @@ const Publications = () => (
             Research Publications
           </h2>
           <p className="text-[15px] text-base-content/55 max-w-lg mx-auto leading-7">
-            Published research papers and conference proceedings in Machine
-            Learning, Computer Vision, and NLP.
+            Peer-reviewed research in gamification, educational technology,
+            and human-computer interaction.
           </p>
         </div>
       </Fade>
@@ -64,7 +58,8 @@ const Publications = () => (
                 </span>
               </div>
 
-              <p className="text-[13px] text-base-content/50 italic mt-2">
+              <p className="text-[13px] text-base-content/50 mt-2">{pub.authors}</p>
+              <p className="text-[13px] text-base-content/45 italic mt-0.5">
                 {pub.venue}
               </p>
 
