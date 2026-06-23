@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ThemeToggle from "../Theme/ThemeToggole";
 import Magnetic from "../Motion/Magnetic";
 
 const navItems = [
@@ -56,26 +55,22 @@ const Navbar = () => {
         </Magnetic>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-6">
-          <nav>
-            <ul className="flex items-center gap-6">
-              {navItems.map((item) => (
-                <li key={item.name}>
-                  <Magnetic strength={0.14} max={8}>
-                    <a href={item.href} className={linkClass(item.id)} data-cursor="hover">
-                      {item.name}
-                    </a>
-                  </Magnetic>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <ThemeToggle />
-        </div>
+        <nav className="hidden lg:flex items-center">
+          <ul className="flex items-center gap-6">
+            {navItems.map((item) => (
+              <li key={item.name}>
+                <Magnetic strength={0.14} max={8}>
+                  <a href={item.href} className={linkClass(item.id)} data-cursor="hover">
+                    {item.name}
+                  </a>
+                </Magnetic>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {/* Mobile Nav */}
-        <div className="lg:hidden flex items-center gap-2">
-          <ThemeToggle />
+        <div className="lg:hidden">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg

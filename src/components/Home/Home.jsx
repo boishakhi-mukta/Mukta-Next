@@ -5,7 +5,6 @@ import {
   FaGithub,
   FaLinkedin,
   FaMapMarkerAlt,
-  FaChevronDown,
 } from "react-icons/fa";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Typewriter } from "react-simple-typewriter";
@@ -29,7 +28,7 @@ const Home = () => {
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
         <div className="flex flex-col items-center py-10 px-2 md:px-8">
           <Fade direction="up" duration={800} damping={0.1}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-base-content">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight text-base-content">
               Hello, I&apos;m{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent inline-block pb-2">
                 Boishakhi
@@ -142,22 +141,6 @@ const Home = () => {
           </Fade>
         </div>
       </div>
-
-      {/* Bottom gradient bleed into next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-linear-to-b from-transparent to-base-100/60" />
-
-      {/* Scroll indicator */}
-      <Fade direction="up" duration={600} delay={500} triggerOnce>
-        <a
-          href="#about"
-          aria-label="Scroll to About section"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-base-content/35 hover:text-primary/70 transition-colors duration-300"
-          data-cursor="hover"
-        >
-          <span className="text-[9px] font-bold tracking-[0.3em] uppercase">scroll</span>
-          <FaChevronDown className="text-xs animate-bounce" />
-        </a>
-      </Fade>
 
     </section>
   );
