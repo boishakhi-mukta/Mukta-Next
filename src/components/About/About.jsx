@@ -194,31 +194,6 @@ const About = () => {
                         </ul>
                       </div>
 
-                      <div className="bg-base-100 rounded-3xl p-5 shadow-md border border-base-300 w-full">
-                        <h3 className="text-base font-semibold mb-3 text-primary">
-                          Publications
-                        </h3>
-                        <div className="space-y-5">
-                          <div>
-                            <h4 className="text-sm font-semibold leading-snug">
-                              Gamification in Learning Management Systems: A Systematic Literature Review (2025)
-                            </h4>
-                            <p className="text-xs text-base-content/50 mt-1 mb-1">Co-author — (Information, MDPI)</p>
-                            <p className="text-[13px] text-base-content/65 leading-6">
-                              Focused on gamification techniques and user engagement in digital learning platforms
-                            </p>
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-semibold leading-snug">
-                              A Collaborative Digital Platform for Charity Thrift Store Workers (2024)
-                            </h4>
-                            <p className="text-xs text-base-content/50 mt-1 mb-1">Co-author — (IARIA Conference)</p>
-                            <p className="text-[13px] text-base-content/65 leading-6">
-                              Research on collaborative systems and user centered design in real world applications
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   )}
                 </div>

@@ -4,6 +4,7 @@ import Home from "@/components/Home/Home";
 import CustomCursor from "@/components/Motion/CustomCursor";
 import Navbar from "@/components/Navbar/Navbar";
 import Projects from "@/components/Projects/Projects";
+import Publications from "@/components/Publications/Publications";
 import Skills from "@/components/Skills/Skills";
 
 export default function Page() {
@@ -28,6 +29,10 @@ export default function Page() {
 
       <section className="w-10/12 mx-auto" id="projects">
         <Projects />
+      </section>
+
+      <section id="publications">
+        <Publications />
       </section>
 
       <footer>
