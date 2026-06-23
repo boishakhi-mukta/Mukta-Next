@@ -13,7 +13,7 @@ import Magnetic from "../Motion/Magnetic";
 
 const Home = () => {
   return (
-    <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-base-200">
+    <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-base-200 pt-16">
       {/* Background decorations */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
       <div
