@@ -20,7 +20,7 @@ const About = () => {
           </h2>
         </Zoom>
 
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-10 items-start">
           <Zoom triggerOnce duration={650} delay={80}>
             <div className="flex justify-center items-center">
               {/* Circular frame: white ring → coloured backdrop → photo */}
@@ -92,7 +92,7 @@ const About = () => {
                         </p>
                         <div className="pt-3">
                           <a
-                            href="https://wa.me/+4746529015"
+                            href="https://wa.me/+4748685891"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn border-primary p-2"
