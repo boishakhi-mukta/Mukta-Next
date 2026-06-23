@@ -5,6 +5,7 @@ import {
   FaGithub,
   FaLinkedin,
   FaMapMarkerAlt,
+  FaChevronDown,
 } from "react-icons/fa";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Typewriter } from "react-simple-typewriter";
@@ -13,7 +14,7 @@ import Magnetic from "../Motion/Magnetic";
 
 const Home = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-base-200">
+    <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-base-200">
       {/* Background decorations */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
       <div
@@ -26,7 +27,7 @@ const Home = () => {
       ></div>
 
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
-        <div className="flex flex-col items-center py-16 px-2 md:px-8">
+        <div className="flex flex-col items-center py-10 px-2 md:px-8">
           <Fade direction="up" duration={800} damping={0.1}>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-base-content">
               Hello, I&apos;m{" "}
@@ -141,6 +142,23 @@ const Home = () => {
           </Fade>
         </div>
       </div>
+
+      {/* Bottom gradient bleed into next section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-linear-to-b from-transparent to-base-100/60" />
+
+      {/* Scroll indicator */}
+      <Fade direction="up" duration={600} delay={500} triggerOnce>
+        <a
+          href="#about"
+          aria-label="Scroll to About section"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-base-content/35 hover:text-primary/70 transition-colors duration-300"
+          data-cursor="hover"
+        >
+          <span className="text-[9px] font-bold tracking-[0.3em] uppercase">scroll</span>
+          <FaChevronDown className="text-xs animate-bounce" />
+        </a>
+      </Fade>
+
     </section>
   );
 };
