@@ -2,35 +2,30 @@
 
 import { Fade } from "react-awesome-reveal";
 import {
-  FaReact, FaHtml5, FaCss3Alt, FaJs, FaGithub, FaFigma, FaNodeJs, FaCode,
+  FaReact, FaJs, FaGithub, FaFigma, FaNodeJs, FaCode,
 } from "react-icons/fa";
 import {
   SiTailwindcss, SiDaisyui, SiMongodb, SiExpress, SiPostman, SiSlack, SiJira,
-  SiBootstrap, SiFirebase, SiMysql, SiTypescript, SiOpenai, SiGoogle, SiClaude,
+  SiFirebase, SiMysql, SiTypescript, SiOpenai, SiGoogle, SiClaude,
   SiNextdotjs, SiGooglegemini,
 } from "react-icons/si";
 
 const skillGroups = [
   {
-    title: "Frontend",
-    speed: 28,
-    direction: "normal",
+    title: "Frontend Development",
+    col: "md:col-span-2",
     skills: [
-      { name: "React",      icon: <FaReact color="#61DAFB" /> },
-      { name: "Next.js",    icon: <SiNextdotjs /> },
-      { name: "JavaScript", icon: <FaJs color="#F7DF1E" /> },
-      { name: "TypeScript", icon: <SiTypescript color="#3178C6" /> },
-      { name: "HTML5",      icon: <FaHtml5 color="#E34F26" /> },
-      { name: "CSS3",       icon: <FaCss3Alt color="#1572B6" /> },
-      { name: "Tailwind",   icon: <SiTailwindcss color="#06B6D4" /> },
-      { name: "DaisyUI",    icon: <SiDaisyui color="#1AD1A5" /> },
-      { name: "Bootstrap",  icon: <SiBootstrap color="#7952B3" /> },
+      { name: "React",       icon: <FaReact color="#61DAFB" /> },
+      { name: "Next.js",     icon: <SiNextdotjs /> },
+      { name: "JavaScript",  icon: <FaJs color="#F7DF1E" /> },
+      { name: "TypeScript",  icon: <SiTypescript color="#3178C6" /> },
+      { name: "Tailwind",    icon: <SiTailwindcss color="#06B6D4" /> },
+      { name: "DaisyUI",     icon: <SiDaisyui color="#1AD1A5" /> },
     ],
   },
   {
     title: "Backend & Data",
-    speed: 20,
-    direction: "reverse",
+    col: "",
     skills: [
       { name: "Node.js",  icon: <FaNodeJs color="#339933" /> },
       { name: "Express",  icon: <SiExpress /> },
@@ -41,8 +36,7 @@ const skillGroups = [
   },
   {
     title: "Tools & Workflow",
-    speed: 24,
-    direction: "normal",
+    col: "",
     skills: [
       { name: "GitHub",  icon: <FaGithub /> },
       { name: "Figma",   icon: <FaFigma color="#F24E1E" /> },
@@ -53,14 +47,13 @@ const skillGroups = [
   },
   {
     title: "AI-Assisted Development",
-    speed: 18,
-    direction: "reverse",
+    col: "md:col-span-2",
     skills: [
-      { name: "Codex",           icon: <SiOpenai /> },
-      { name: "Cursor",          icon: <FaCode /> },
-      { name: "Gemini",          icon: <SiGooglegemini color="#4285F4" /> },
-      { name: "Google AI Studio",icon: <SiGoogle color="#4285F4" /> },
-      { name: "Claude",          icon: <SiClaude color="#D97757" /> },
+      { name: "Codex",            icon: <SiOpenai /> },
+      { name: "Cursor",           icon: <FaCode /> },
+      { name: "Gemini",           icon: <SiGooglegemini color="#4285F4" /> },
+      { name: "Google AI Studio", icon: <SiGoogle color="#4285F4" /> },
+      { name: "Claude",           icon: <SiClaude color="#D97757" /> },
     ],
   },
 ];
@@ -68,97 +61,65 @@ const skillGroups = [
 function Chip({ name, icon }) {
   return (
     <span
-      className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full shrink-0
-                 bg-base-100 border border-base-content/10 shadow-sm
+      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl
+                 bg-base-200 border border-base-300
+                 hover:bg-primary/8 hover:border-primary/20 hover:text-primary
                  text-[13px] font-medium text-base-content/70
-                 hover:bg-primary/8 hover:border-primary/25 hover:text-primary
-                 transition-all duration-200 cursor-default select-none"
+                 transition-colors duration-200 cursor-default select-none"
       data-cursor="hover"
     >
-      <span className="text-[16px] leading-none">{icon}</span>
+      <span className="text-[15px] leading-none shrink-0">{icon}</span>
       {name}
     </span>
   );
 }
 
-function MarqueeRow({ group, delay }) {
-  const items = [
-    ...group.skills,
-    ...group.skills,
-    ...group.skills,
-    ...group.skills,
-  ];
-
+function CategoryCard({ group, delay }) {
   return (
-    <Fade direction="up" duration={600} delay={delay} triggerOnce>
-      <div className="py-7 border-b border-base-content/8 last:border-b-0 marquee-row">
-
-        {/* Category label + rule */}
-        <div className="flex items-center gap-4 mb-5">
-          <span className="text-[10px] font-black tracking-[0.22em] uppercase text-primary shrink-0">
+    <Fade direction="up" duration={550} delay={delay} triggerOnce>
+      <div className={`rounded-2xl bg-base-100 border border-base-300 p-6 md:p-7
+                       hover:border-primary/20 hover:shadow-md
+                       transition-all duration-300 h-full ${group.col}`}>
+        {/* Category label */}
+        <div className="flex items-center gap-3 mb-5">
+          <span className="text-[10px] font-black tracking-[0.2em] uppercase text-primary">
             {group.title}
           </span>
-          <div className="flex-1 h-px bg-base-content/10" />
+          <div className="flex-1 h-px bg-base-300" />
         </div>
 
-        {/* Scrolling track */}
-        <div className="overflow-hidden relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-base-200 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-base-200 to-transparent z-10 pointer-events-none" />
-
-          <div
-            className="flex gap-3 w-max py-0.5 marquee-track"
-            style={{
-              animation: `skills-marquee ${group.speed}s linear infinite ${group.direction}`,
-            }}
-          >
-            {items.map((skill, j) => (
-              <Chip key={j} {...skill} />
-            ))}
-          </div>
+        {/* Skill chips */}
+        <div className="flex flex-wrap gap-2">
+          {group.skills.map((skill) => (
+            <Chip key={skill.name} {...skill} />
+          ))}
         </div>
-
       </div>
     </Fade>
   );
 }
 
 const Skills = () => (
-  <section id="skills" className="relative py-24 px-6 bg-base-200 overflow-hidden">
-
-    {/* Subtle dot grid backdrop */}
-    <div
-      className="pointer-events-none absolute inset-0 opacity-[0.03]"
-      style={{
-        backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
-        backgroundSize: "28px 28px",
-      }}
-    />
-
-    <div className="relative max-w-6xl mx-auto">
+  <section id="skills" className="relative py-24 px-6 bg-base-200">
+    <div className="relative max-w-5xl mx-auto">
 
       {/* Section header */}
       <Fade direction="up" duration={650} triggerOnce>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
-          <div>
-            <p className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase mb-3">
-              Expertise
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Skills &amp; Technologies
-            </h2>
-          </div>
-          <p className="text-[13px] text-base-content/50 leading-6 max-w-xs md:text-right">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Skills &amp; Technologies
+          </h2>
+          <p className="text-[15px] text-base-content/55 max-w-lg mx-auto leading-7">
             Tools and technologies I use to build clean, performant,
             and user-focused products.
           </p>
         </div>
       </Fade>
 
-      {/* Rows */}
-      <div>
+      {/* Card grid — full / half+half / full */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {skillGroups.map((group, i) => (
-          <MarqueeRow key={group.title} group={group} delay={i * 90} />
+          <CategoryCard key={group.title} group={group} delay={i * 80} />
         ))}
       </div>
 
